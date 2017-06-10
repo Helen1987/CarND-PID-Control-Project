@@ -17,24 +17,18 @@ public:
   double Ki;
   double Kd;
 
-  /*
-  * Constructor
-  */
   PID();
 
-  /*
-  * Destructor.
-  */
   virtual ~PID();
 
-  /*
-  * Initialize PID.
+  /**
+  * Initializes PID with coefficients
+  * @param Kp the farther from the trajectory the bigger the error
+  * @param Ki cumulative error: if we keep moving too far from the trajectory, we should increase the error
+  * @param Kd the larger difference between current and previous cte, the larger error we have
   */
   void Init(double Kp, double Ki, double Kd);
 
-  /*
-  * Update the PID error variables given cross track error.
-  */
   void UpdateError(double cte);
 
   /*
