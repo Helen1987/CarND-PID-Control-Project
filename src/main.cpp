@@ -28,12 +28,25 @@ std::string hasData(std::string s) {
   return "";
 }
 
-int main()
+int main(int argc, char* argv[])
 {
   uWS::Hub h;
 
+
+  double Kp, Ki, Kd;
+  if (argv[1]) { // twiddle mode
+    Kp = atof(argv[1]);
+    Ki = atof(argv[2]);
+    Kd = atof(argv[3]);
+  }
+  else { // tuned values
+    Kp = 0.103;
+    Ki = 0.000005;
+    Kd = 0.98;
+  }
+
   PID pid;
-  pid.Init(1, 0, 1);
+  pid.Init(Kp, Ki, Kd);
 
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
